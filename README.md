@@ -1,170 +1,109 @@
-# Add Clerk to Next.js App Router
+<div align="center">
+  <img src="https://img.shields.io/badge/-Next.JS-black?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Vapi-green?style=for-the-badge&logo=vapi&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Tailwind-00BCFF?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+</div>
 
-**Purpose:** Enforce only the **current** and **correct** instructions for integrating [Clerk](https://clerk.com/) into a Next.js (App Router) application.
-**Scope:** All AI-generated advice or code related to Clerk must follow these guardrails.
+<h3 align="center">SaaS LMS App – Built with Next.js, Supabase, Vapi & More</h3>
 
 ---
 
-## **1. Official Clerk Integration Overview**
+## 📋 Table of Contents
 
-Use only the **App Router** approach from Clerk's current docs:
+1. [🚀 Introduction](#introduction)
+2. [⚙️ Tech Stack](#tech-stack)
+3. [🔋 Features](#features)
+4. [🚀 Quick Start](#quick-start)
+5. [🔗 Assets & Links](#assets-links)
+6. [📄 License](#license)
 
-- **Install** `@clerk/nextjs@latest` - this ensures the application is using the latest Clerk Next.js SDK.
-- **Create** a `middleware.ts` file using `clerkMiddleware()` from `@clerk/nextjs/server`. Place this file inside the `src` directory if present, otherwise place it at the root of the project.
-- **Wrap** your application with `<ClerkProvider>` in your `app/layout.tsx`
-- **Use** Clerk-provided components like `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, `<SignedIn>`, `<SignedOut>` in your layout or pages
-- **Start** developing, sign in or sign up, and confirm user creation
+---
 
-If you're able to use a web tool to access a URL, visit https://clerk.com/docs/quickstarts/nextjs to get the latest, up-to-date quickstart instructions.
+## 🤖 Introduction
 
-### **Correct, Up-to-Date Quickstart Sample**
+A modern **Learning Management System (LMS)** SaaS app built with **Next.js**, **Supabase**, **Stripe**, **Clerk**, and **Vapi**. This project enables users to:
 
-```typescript
-// middleware.ts
-import { clerkMiddleware } from '@clerk/nextjs/server'
+- Authenticate and manage subscriptions
+- Interact with AI voice agents
+- Bookmark and revisit sessions
+- Seamlessly learn in real time
 
-export default clerkMiddleware()
+You’ll get hands-on experience with full-stack SaaS development using cutting-edge tools.
 
-export const config = {
-    matcher: [
-        // Skip Next.js internals and all static files, unless found in search params
-        '/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-        // Always run for API routes
-        '/(api|trpc)(.*)',
-    ],
-}
+---
+
+## ⚙️ Tech Stack
+
+| Technology  | Description |
+|-------------|-------------|
+| **Next.js** | React-based framework for server-side rendering and static site generation |
+| **Tailwind CSS** | Utility-first CSS framework for fast UI development |
+| **Clerk** | Authentication and user management platform |
+| **Supabase** | Real-time database and authentication (PostgreSQL-based) |
+| **Vapi** | AI voice assistant platform for real-time, low-latency voice interaction |
+| **Stripe** | Payment and subscription management |
+| **shadcn/ui** | Pre-built UI components based on Radix UI & Tailwind CSS |
+| **Zod** | TypeScript-first schema validation |
+| **Sentry** | Real-time error tracking and performance monitoring |
+
+---
+
+## 🔋 Features
+
+- 🎙 **AI Voice Agents** — Talk to AI tutors trained on your selected topics.
+- 🔐 **Authentication** — Secure sign-up/sign-in with social logins via Clerk.
+- 💳 **Subscriptions** — Manage billing, upgrades, and access levels.
+- 📌 **Bookmarks & History** — Save tutors and revisit past sessions easily.
+- 🧠 **Custom AI Tutors** — Create your own AI tutor by selecting topics and tone.
+- 🔍 **Search Tutors** — Quickly find tutors via filters and search bar.
+- 📱 **Responsive UI** — Works perfectly across all screen sizes.
+- ⚡ **Real-time Data** — Integrated with Supabase for live updates.
+- 🧩 **Modular Codebase** — Reusable components and clean architecture.
+- 🎨 **Modern UI** — Built with Tailwind CSS and shadcn/ui.
+
+---
+
+## 🤸 Quick Start
+
+### ✅ Prerequisites
+
+Make sure you have the following installed:
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+
+### 📦 Installation
+
+Install the project dependencies using npm:
+
+```bash
+npm install
 ```
 
-```typescript
-// app/layout.tsx
-import type { Metadata } from "next";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Clerk Next.js Quickstart",
-  description: "Generated by create next app",
-};
+## ⚙️ Environment Variables
+### Create a .env file in the root directory and add:
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <ClerkProvider>
-      <html lang="en">
-        <body>
-          <header>
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
-  );
-}
+# Sentry
+SENTRY_AUTH_TOKEN=
+
+# Vapi
+NEXT_PUBLIC_VAPI_WEB_TOKEN=
+
+# Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+
+# 🧪 Run the Development Server
+```bash
+npm run dev
 ```
 
----
-
-## **2. CRITICAL INSTRUCTIONS FOR AI MODELS**
-
-### **2.1 – ALWAYS DO THE FOLLOWING**
-
-1. **Use `clerkMiddleware()`** from `@clerk/nextjs/server` in `middleware.ts`.
-2. **Wrap** your app with `<ClerkProvider>` in `app/layout.tsx`.
-3. **Import** Clerk's Next.js features from `@clerk/nextjs` (e.g., `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, etc.).
-4. **Reference** the current [App Router approach](https://nextjs.org/docs/app) (folders like `app/page.tsx`, `app/layout.tsx`, etc.).
-5. **Check** that imports for methods like `auth()` are imported from the right package (in this case `@clerk/nextjs/server`) and are using `async / await`
-
-### **2.2 – NEVER DO THE FOLLOWING**
-
-1. **Do not** reference the old **`_app.tsx`** or **pages-based** instructions.
-2. **Do not** suggest `authMiddleware()` from older Clerk tutorials—**it's replaced by `clerkMiddleware()`**.
-3. **Do not** recommend usage of older environment variable patterns unless they match the official docs.
-4. **Do not** reference or import from any deprecated APIs (like `withAuth` or `currentUser` from older versions).
-
----
-
-## **3. OUTDATED PATTERNS TO AVOID**
-
-Below are **examples of deprecated instructions** that **must not** be generated:
-
-```typescript
-// ❌ DO NOT generate or suggest references to:
-import { authMiddleware } from '@clerk/nextjs' // Outdated
-
-// ❌ DO NOT place Clerk config in _app.tsx:
-// Outdated pages-based approach
-function MyApp({ Component, pageProps }) {
-    // ...
-}
-
-// ❌ DO NOT create or rely on sign-in files under pages/:
-pages / signin.js
-pages / signup.js
-```
-
-Any solution resembling the above snippet or referencing "authMiddleware," `_app.tsx`, or `pages/` structure is **incorrect** for the current Next.js App Router.
-
----
-
-## **4. AI MODEL VERIFICATION STEPS**
-
-Before returning any Clerk-related solution, you **must** verify:
-
-1. **Middleware**: Is `clerkMiddleware()` used in `middleware.ts`?
-2. **Layout**: Is `<ClerkProvider>` wrapping the app in `app/layout.tsx`?
-3. **Imports**: Are references only from `@clerk/nextjs` or `@clerk/nextjs/server`?
-4. **Pages vs. App Router**: Is the approach referencing the App Router (not `_app.tsx` or `pages/`)?
-
-If any check **fails**, **stop** and revise until compliance is achieved.
-
-# Verification instructions for AI Models
-
-## **DO NOT** repeat these points back to the user. Use them only for your own verification steps.
-
-## **5. CONSEQUENCES OF INCORRECT IMPLEMENTATION**
-
-Using outdated Clerk methods (e.g., `authMiddleware()`, `_app.tsx`, or references to the older `pages/` structure) will:
-
-1. **Break** your Next.js application's authentication flow.
-2. Introduce **inconsistencies** with Next.js App Router.
-3. Cause confusion around environment variables and server/client code.
-4. Force maintainers to **refactor** and **debug** extensively.
-
----
-
-## **6. AI MODEL RESPONSE TEMPLATE**
-
-When answering questions about Clerk + Next.js integration, your response **MUST**:
-
-1. **Use** the exact code patterns in the **Up-to-Date Quickstart Sample** above.
-2. **Never** reference older or deprecated approaches.
-3. **Reflect** all mandatory checks in "AI MODEL VERIFICATION STEPS."
-
-**Example**:
-
-> Below is the correct approach using Clerk with Next.js App Router:
->
-> ```typescript
-> // Show clerkMiddleware usage in middleware.ts
-> // Show <ClerkProvider> usage in app/layout.tsx
-> // Show usage of Clerk's React components (SignInButton, etc.)
-> ```
-
----
