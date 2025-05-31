@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 const CompanionsLibrary = () => {
-  return <div>CompanionsLibrary</div>;
-};
+    return <div>CompanionsLibrary</div>
+}
 
-export default CompanionsLibrary;
+export default CompanionsLibrary
