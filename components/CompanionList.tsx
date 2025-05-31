@@ -1,4 +1,3 @@
-import React from 'react'
 import {
     Table,
     TableBody,
@@ -7,24 +6,30 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@/components/ui/table'
-import { cn, getSubjectColor } from '@/lib/utils'
-import Link from 'next/link'
+} from '@/components/ui/table';
+import { cn, getSubjectColor } from '@/lib/utils';
+import Link from 'next/link';
+import Image from 'next/image';
 
-interface CompanionListProps {
-    title: string
-    companions?: Companion[]
-    className?: string
+interface CompanionsListProps {
+    title: string;
+    companions?: Companion[];
+    classNames?: string;
 }
 
-const CompanionList = ({
+const CompanionsList = ({
     title,
     companions,
-    className,
-}: CompanionListProps) => {
+    classNames,
+}: CompanionsListProps) => {
+    const uniqueCompanions = companions?.filter(
+        (companion, index, self) =>
+            index === self.findIndex((c) => c.id === companion.id)
+    );
     return (
-        <article className={cn('companion-list', className)}>
-            <h2 className="font-bold text-3xl">Recent Sessions</h2>
+        <article className={cn('companion-list', classNames)}>
+            <h2 className="font-bold text-3xl">{title}</h2>
+
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -35,8 +40,9 @@ const CompanionList = ({
                         </TableHead>
                     </TableRow>
                 </TableHeader>
+
                 <TableBody>
-                    {companions?.map(
+                    {uniqueCompanions?.map(
                         ({ id, subject, name, topic, duration }) => (
                             <TableRow key={id}>
                                 <TableCell>
@@ -51,7 +57,7 @@ const CompanionList = ({
                                                         ),
                                                 }}
                                             >
-                                                <img
+                                                <Image
                                                     src={`/icons/${subject}.svg`}
                                                     alt={subject}
                                                     width={35}
@@ -80,7 +86,7 @@ const CompanionList = ({
                                                 getSubjectColor(subject),
                                         }}
                                     >
-                                        <img
+                                        <Image
                                             src={`/icons/${subject}.svg`}
                                             alt={subject}
                                             width={18}
@@ -88,18 +94,17 @@ const CompanionList = ({
                                         />
                                     </div>
                                 </TableCell>
-                                <TableCell className="text-right">
-                                    <div className="flex items-center gap-2 w-full">
+                                <TableCell>
+                                    <div className="flex items-center gap-2 w-full justify-end">
                                         <p className="text-2xl">
-                                            {' '}
                                             {duration}{' '}
                                             <span className="max-md:hidden">
                                                 mins
                                             </span>
                                         </p>
-                                        <img
+                                        <Image
                                             src="/icons/clock.svg"
-                                            alt="clock"
+                                            alt="minutes"
                                             width={14}
                                             height={14}
                                             className="md:hidden"
@@ -112,7 +117,7 @@ const CompanionList = ({
                 </TableBody>
             </Table>
         </article>
-    )
-}
+    );
+};
 
-export default CompanionList
+export default CompanionsList;
